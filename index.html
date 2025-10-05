@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacrificial Dominion</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1 class="game-title">⚔️ SACRIFICIAL DOMINION</h1>
+            <div class="level-display">
+                <span class="level-text">Level</span>
+                <span class="level-number" id="playerLevel">1</span>
+            </div>
+        </header>
+
+        <div class="game-main">
+            <div class="left-sidebar">
+                <div class="stats-section">
+                    <h3>⚡ Stats</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Health:</span>
+                        <span class="stat-value">
+                            <span id="currentHealth">100</span> / <span id="maxHealth">100</span>
+                        </span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Damage:</span>
+                        <span class="stat-value" id="clickDamage">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">DPS:</span>
+                        <span class="stat-value" id="dpsValue">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Clicks:</span>
+                        <span class="stat-value" id="totalClicks">0</span>
+                    </div>
+                </div>
+
+                <div class="currencies-section">
+                    <h3>💰 Resources</h3>
+                    <div class="currency-item">
+                        <span class="currency-icon">💰</span>
+                        <span class="currency-name">Credits</span>
+                        <span class="currency-amount" id="creditsAmount">0</span>
+                    </div>
+                    <div class="currency-item">
+                        <span class="currency-icon">🩸</span>
+                        <span class="currency-name">Blood</span>
+                        <span class="currency-amount" id="bloodAmount">0</span>
+                    </div>
+                    <div class="currency-item">
+                        <span class="currency-icon">👻</span>
+                        <span class="currency-name">Souls</span>
+                        <span class="currency-amount" id="soulsAmount">0</span>
+                    </div>
+                   
+                </div>
+
+                <div class="sacrifices-section" id="sacrificesSection">
+                    <h3>🔥 Sacrifices</h3>
+                    <div class="sacrifice-item">
+                        <h4>Blood Sacrifice</h4>
+                        <p>Sacrifice 10 Health for 5 Blood</p>
+                        <button class="sacrifice-btn" id="healthSacrificeBtn">Sacrifice Health</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="combat-area">
+                <div class="boss-health-container" id="bossHealthContainer">
+                    <div class="boss-info">
+                        <h3 id="bossName">Training Dummy</h3>
+                    </div>
+                    <div class="health-bar">
+                        <div class="health-fill" id="bossHealthFill"></div>
+                        <div class="health-text">
+                            <span id="bossCurrentHealth">100</span> / <span id="bossMaxHealth">100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="character-container">
+                    <div class="click-effects" id="clickEffects"></div>
+                    <div class="character robot-character" id="mainCharacter">
+                        <div class="robot-body"></div>
+                        <div class="robot-head"></div>
+                        <div class="robot-eyes">
+                            <div class="robot-eye"></div>
+                            <div class="robot-eye"></div>
+                        </div>
+                        <div class="robot-arms">
+                            <div class="robot-arm left"></div>
+                            <div class="robot-arm right"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="boss-container" id="bossContainer" style="display: none;">
+                    <div class="boss-image-wrapper">
+                        <img class="boss-image" id="bossImage" src="" alt="Boss" />
+                        <div class="boss-fallback" id="bossFallback"></div>
+                    </div>
+                </div>
+
+                <div class="progress-section">
+                    <div class="progress-label">Progress to Boss</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="bossProgress"></div>
+                    </div>
+                    <div class="progress-text">Level <span id="currentLevel">1</span> / <span id="nextBossLevel">10</span></div>
+                </div>
+            </div>
+
+            <div class="right-sidebar">
+                <div class="shop-section">
+                    <h3>⚔️ Click Power</h3>
+                    <div class="upgrade-item">
+                        <div class="upgrade-info">
+                            <h4>Plasma Blade</h4>
+                            <p>+5 damage per click</p>
+                            <div class="upgrade-cost" id="plasmaBladeCost">💰 100</div>
+                        </div>
+                        <button class="buy-btn" id="plasmaBladeBtn">Buy</button>
+                    </div>
+
+                    <div class="upgrade-item">
+                        <div class="upgrade-info">
+                            <h4>Blood Sword</h4>
+                            <p>+20 damage per click</p>
+                            <div class="upgrade-cost" id="bloodSwordCost">🩸 5 + 💰 200</div>
+                        </div>
+                        <button class="buy-btn" id="bloodSwordBtn">Buy</button>
+                    </div>
+
+                    <div class="upgrade-item">
+                        <div class="upgrade-info">
+                            <h4>Soul Reaper</h4>
+                            <p>+100 damage per click</p>
+                            <div class="upgrade-cost" id="soulReaperCost">👻 3 + 💰 1000</div>
+                        </div>
+                        <button class="buy-btn" id="soulReaperBtn">Buy</button>
+                    </div>
+
+                    <h3>🤖 Auto-Clickers</h3>
+                    <div class="upgrade-item">
+                        <div class="upgrade-info">
+                            <h4>Ghost Ally</h4>
+                            <p>1 DPS</p>
+                            <div class="upgrade-cost" id="ghostAllyCost">👻 3</div>
+                        </div>
+                        <button class="buy-btn" id="ghostAllyBtn">Buy</button>
+                    </div>
+
+                    <div class="upgrade-item">
+                        <div class="upgrade-info">
+                            <h4>Blood Servant</h4>
+                            <p>5 DPS</p>
+                            <div class="upgrade-cost" id="bloodServantCost">🩸 8</div>
+                        </div>
+                        <button class="buy-btn" id="bloodServantBtn">Buy</button>
+                    </div>
+
+                    <div class="upgrade-item">
+                        <div class="upgrade-info">
+                            <h4>Void Minion</h4>
+                            <p>25 DPS</p>
+                            <div class="upgrade-cost" id="voidMinionCost">🩸 15 + 👻 3</div>
+                        </div>
+                        <button class="buy-btn" id="voidMinionBtn">Buy</button>
+                    </div>
+                </div>
+
+                <div class="achievements-section">
+                    <h3>🏆 Achievements</h3>
+                    <div class="achievement-list" id="achievementList">
+                        <div class="achievement-item" id="achievement-firstClick">
+                            <span class="achievement-icon">👆</span>
+                            <span class="achievement-name">First Click</span>
+                        </div>
+                        <div class="achievement-item" id="achievement-firstSacrifice">
+                            <span class="achievement-icon">🔥</span>
+                            <span class="achievement-name">First Sacrifice</span>
+                        </div>
+                        <div class="achievement-item" id="achievement-bossSlayer">
+                            <span class="achievement-icon">⚔️</span>
+                            <span class="achievement-name">Boss Slayer</span>
+                        </div>
+                        <div class="achievement-item" id="achievement-bloodPact">
+                            <span class="achievement-icon">🩸</span>
+                            <span class="achievement-name">Blood Pact</span>
+                        </div>
+                        <div class="achievement-item" id="achievement-soulCollector">
+                            <span class="achievement-icon">👻</span>
+                            <span class="achievement-name">Soul Collector</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quests-section">
+                    <h3>📋 Daily Quests</h3>
+                    <div class="quest-list" id="questList">
+                        <div class="quest-item">
+                            <div class="quest-name">Century Clicker</div>
+                            <div class="quest-desc">Click 100 times</div>
+                            <div class="quest-progress">
+                                <span id="quest-clicks">0</span> / 100
+                            </div>
+                        </div>
+                        <div class="quest-item">
+                            <div class="quest-name">First Blood</div>
+                            <div class="quest-desc">Make 1 sacrifice</div>
+                            <div class="quest-progress">
+                                <span id="quest-sacrifices">0</span> / 1
+                            </div>
+                        </div>
+                        <div class="quest-item">
+                            <div class="quest-name">Damage Dealer</div>
+                            <div class="quest-desc">Deal 1000 total damage</div>
+                            <div class="quest-progress">
+                                <span id="quest-damage">0</span> / 1000
+                            </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal hidden" id="bossModal">
+        <div class="modal-content">
+            <div class="boss-modal-header">
+                <h2 id="bossModalTitle">Boss Defeated!</h2>
+            </div>
+            <div class="boss-modal-body">
+                <div class="boss-image-container">
+                    <img class="boss-modal-image" id="modalBossImage" src="" alt="Boss" />
+                    <div class="boss-modal-fallback" id="modalBossFallback"></div>
+                </div>
+                <div class="boss-rewards">
+                    <h3>Rewards:</h3>
+                    <p id="bossRewardText">You gained 5 Souls!</p>
+                </div>
+                <div class="boss-unlock">
+                    <p id="bossUnlockText">You grow stronger with each victory...</p>
+                </div>
+                <button class="btn btn--primary" id="closeBossModal">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal hidden" id="sacrificeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="sacrificeModalTitle">Confirm Sacrifice</h2>
+            </div>
+            <div class="modal-body">
+                <p id="sacrificeModalText">Are you sure you want to make this sacrifice?</p>
+                <div class="modal-buttons">
+                    <button class="btn btn--primary" id="confirmSacrificeBtn">Yes, Sacrifice</button>
+                    <button class="btn btn--secondary" id="cancelSacrificeBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
